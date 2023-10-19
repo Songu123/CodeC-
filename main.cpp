@@ -1,27 +1,28 @@
 #include <iostream>
 using namespace std;
-int soNguyenTo(int n){
-    if(n<=1){
-        return 0;
-    }
-    if(n == 2 || n == 3){
-        return 1;
-    }
-    for (int i = 2; i < n; ++i) {
-        if(n % i == 0){
-            return 0;
+bool soNguyenTo(int n, int i = 2){
+    if (n <= 2)
+        return (n == 2);
+    if (n % i == 0)
+        return false;
+    if (i * i > n)
+        return true;
+    return soNguyenTo(n, i + 1);
+}
+int inSoNguyenTo(int n, int i = 2){
+    if(i <= n){
+        if(soNguyenTo(i)){
+            cout << i << " ";
         }
+        return inSoNguyenTo(n, i + 1);
     }
-    return 1;
+
 }
 int main() {
     cout << "Nhập N: ";
     int n;
     cin >> n;
-    for (int i = 1; i <= n; i++) {
-        if(soNguyenTo(i) == 1){
-            cout << i << " ";
-        }
-    }
+    cout << "Các số nguyên tố từ 2 đến " << n <<" là: ";
+    inSoNguyenTo(n);
     return 0;
 }
